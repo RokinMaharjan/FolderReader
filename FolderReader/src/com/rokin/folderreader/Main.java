@@ -6,6 +6,10 @@
 package com.rokin.folderreader;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,10 +21,17 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        File folder = new File("/home/rokin/Desktop/Subtitles");
-        for(File file : folder.listFiles())
-        {
-            System.out.println(file);
-        }  
+        FileWriter writer = null;
+        try {
+            File folder = new File("/home/rokin/Desktop/Subtitles");
+            writer = new FileWriter("/home/rokin/Desktop/ListOfFilenames");
+            for(File file : folder.listFiles())
+            {
+                writer.append(file.getName()).append("\n");
+            }
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }   
 }
